@@ -14,7 +14,7 @@ function Header() {
 			<h1>Header</h1>
 			<form onSubmit={handleSubmit}>
 				<input
-					placeholder="Search Order"
+					placeholder="Search Order #"
 					value={searchQuery}
 					onChange={e => setSearchQuery(e.target.value)}
 				/>
