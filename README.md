@@ -66,3 +66,5 @@ export async function loader() {
 	return data;
 }
 ```
+
+### 3. Use the hook `useNavigation()` to get the loading state of route.
