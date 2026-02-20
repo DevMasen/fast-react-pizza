@@ -8,7 +8,6 @@ import CartOverview from '../features/cart/CartOverview';
 function AppLayout() {
 	const navigate = useNavigation();
 	const isLoading = navigate.state === 'loading';
-	console.log(isLoading);
 	return (
 		<div className="layout">
 			<Header />

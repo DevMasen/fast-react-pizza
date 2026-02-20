@@ -14,15 +14,17 @@ Currently, two official plugins are available:
 ```js
 import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
-import Route1 ,{loader as Route1loader} from './components/Route1';
+import Route1, { loader as Route1loader } from './components/Route1';
 import Route2 from './components/Route2';
 import Route3 from './components/Route3';
 import Home from './components/Home';
+import Error from './components/Error';
 
 const router = createBrowserRouter([
 	{
-		element: <RootRoute/>
-		children:[
+		element: <RootRoute />,
+		errorElement: <Error />,
+		children: [
 			{
 				path: '/',
 				element: <Home />,
@@ -31,15 +33,17 @@ const router = createBrowserRouter([
 				path: '/route1',
 				element: <Route1 />,
 				loader: Route1loader,
+				errorElement: <Error />,
 			},
 			{
 				path: '/route2/nested',
-				element: <Route2 /> },
+				element: <Route2 />,
+			},
 			{
 				path: '/route2/:id',
 				element: <Route3 />,
 			},
-		]
+		],
 	},
 ]);
 
@@ -67,4 +71,6 @@ export async function loader() {
 }
 ```
 
-### 3. Use the hook `useNavigation()` to get the loading state of route.
+### 3. Use the hook `useNavigation()` to get the loading state of Route.
+
+### 4. Handle Errors with errorElement attribue in createBrowserRoute and `useRouteError()` hook.
