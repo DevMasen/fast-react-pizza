@@ -1,5 +1,6 @@
 // Test ID: IIDSAT
 
+import { useParams } from 'react-router';
 import {
 	calcMinutesLeft,
 	formatCurrency,
@@ -42,6 +43,7 @@ const order = {
 };
 
 function Order() {
+	const { orderId } = useParams();
 	// Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
 	const {
 		id,
@@ -57,7 +59,7 @@ function Order() {
 	return (
 		<div>
 			<div>
-				<h2>Status</h2>
+				<h2>Status {orderId}</h2>
 
 				<div>
 					{priority && <span>Priority</span>}
