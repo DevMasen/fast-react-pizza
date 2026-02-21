@@ -11,7 +11,7 @@ function Header() {
     navigate(`/order/${searchQuery}`);
   }
   return (
-    <header className="border-b-2 border-stone-500 bg-yellow-500 px-4 py-3 uppercase">
+    <header className="border-b border-stone-500 bg-yellow-500 px-4 py-3 uppercase sm:px-6">
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Search Order #"
