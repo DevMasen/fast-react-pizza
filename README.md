@@ -82,7 +82,12 @@ export async function loader() {
 
 ```js
 import { postData } from 'api';
+import { Form, redirect, useActionData, useNavigation } from 'react-router';
+
 export default function Component() {
+	const errors = useActionData();
+	const navigation = useNavigation();
+	const isSubmitting = navigation.state === 'submitting';
 	return (
 		<Form method="POST">
 			<input type="X" name="y" />
@@ -93,6 +98,16 @@ export default function Component() {
 export async function action({ request }) {
 	const formData = await request.formData();
 	const data = Object.fromEntries(formData);
+
+	const errors = {};
+	if (ERROR1_CONDITION) {
+		errors.ERROR1 = 'ERROR MESSAGE!';
+		return errors;
+	}
+	if (ERROR2_CONDITION) {
+		errors.ERROR2 = 'ERROR MESSAGE!';
+		return errors;
+	}
 
 	const res = await postData(data);
 
