@@ -21,35 +21,35 @@ import Home from './components/Home';
 import Error from './components/Error';
 
 const router = createBrowserRouter([
-	{
-		element: <RootRoute />,
-		errorElement: <Error />,
-		children: [
-			{
-				path: '/',
-				element: <Home />,
-			},
-			{
-				path: '/route1',
-				element: <Route1 />,
-				loader: Route1Loader,
-				errorElement: <Error />,
-			},
-			{
-				path: '/route2/nested',
-				element: <Route2 />,
-				action: Route2Action,
-			},
-			{
-				path: '/route2/:id',
-				element: <Route3 />,
-			},
-		],
-	},
+  {
+    element: <RootRoute />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: '/route1',
+        element: <Route1 />,
+        loader: Route1Loader,
+        errorElement: <Error />,
+      },
+      {
+        path: '/route2/nested',
+        element: <Route2 />,
+        action: Route2Action,
+      },
+      {
+        path: '/route2/:id',
+        element: <Route3 />,
+      },
+    ],
+  },
 ]);
 
 export default function App() {
-	return <RouterProvider router={router} />;
+  return <RouterProvider router={router} />;
 }
 ```
 
@@ -62,13 +62,13 @@ import { useLoaderData } from 'react-router';
 import { getData } from 'api';
 
 export default function Component() {
-	const data = useLoaderData();
+  const data = useLoaderData();
 
-	return <div>{data.key}</div>;
+  return <div>{data.key}</div>;
 }
 export async function loader() {
-	const data = await getData();
-	return data;
+  const data = await getData();
+  return data;
 }
 ```
 
@@ -85,34 +85,88 @@ import { postData } from 'api';
 import { Form, redirect, useActionData, useNavigation } from 'react-router';
 
 export default function Component() {
-	const errors = useActionData();
-	const navigation = useNavigation();
-	const isSubmitting = navigation.state === 'submitting';
-	return (
-		<Form method="POST">
-			<input type="X" name="y" />
-		</Form>
-	);
+  const errors = useActionData();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
+  return (
+    <Form method="POST">
+      <input type="X" name="y" />
+    </Form>
+  );
 }
 
 export async function action({ request }) {
-	const formData = await request.formData();
-	const data = Object.fromEntries(formData);
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
 
-	const errors = {};
-	if (ERROR1_CONDITION) {
-		errors.ERROR1 = 'ERROR MESSAGE!';
-		return errors;
-	}
-	if (ERROR2_CONDITION) {
-		errors.ERROR2 = 'ERROR MESSAGE!';
-		return errors;
-	}
+  const errors = {};
+  if (ERROR1_CONDITION) {
+    errors.ERROR1 = 'ERROR MESSAGE!';
+    return errors;
+  }
+  if (ERROR2_CONDITION) {
+    errors.ERROR2 = 'ERROR MESSAGE!';
+    return errors;
+  }
 
-	const res = await postData(data);
+  const res = await postData(data);
 
-	return redirect(`/route/${res.id}`);
+  return redirect(`/route/${res.id}`);
 }
 ```
 
 ### 2. Connect the action to the routeCreator.
+
+# Getting Start with Tailwind CSS:
+
+## 1. Installation : See Tailwind [Docs](https://v3.tailwindcss.com/docs/guides/vite)
+
+```cmd
+npm install -D tailwindcss@3 postcss autoprefixer
+npx tailwindcss init -p
+```
+
+### A. Update `tailwind.config.js` :
+
+```js
+/** @type {import('tailwindcss').Config} */
+const config = {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+export default config;
+```
+
+### B. Add This Lines in `index.css`:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+## 2. Setup Prettier for Tailwind : See Tailwind [Docs](https://tailwindcss.com/blog/automatic-class-sorting-with-prettier)
+
+```cmd
+npm install -D prettier prettier-plugin-tailwindcss
+```
+
+### Add this codes to `prettier.config.js` :
+
+```js
+const config = {
+  semi: true,
+  singleQuote: true,
+  trailingComma: 'es5',
+  printWidth: 100,
+  plugins: ['prettier-plugin-tailwindcss'],
+};
+export default config;
+```
+
+## 3. Install Tailwind VSCode extension
+
+## 4. run: `npm run dev` and enjoy Tailwind 😉
