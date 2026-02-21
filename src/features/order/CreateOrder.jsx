@@ -1,14 +1,11 @@
 import { createOrder } from '../../services/apiRestaurant';
 /////////////////////////////////
-import { Form, redirect } from 'react-router';
+import { Form, redirect, useActionData, useNavigation } from 'react-router';
 
-// https://uibakery.io/regex-library/phone-number
-/*
 const isValidPhone = str =>
 	/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
 		str,
 	);
-*/
 
 const fakeCart = [
 	{
@@ -36,7 +33,9 @@ const fakeCart = [
 
 function CreateOrder() {
 	const cart = fakeCart;
-
+	const errors = useActionData();
+	const navigation = useNavigation();
+	const isSubmitting = navigation.state === 'submitting';
 	return (
 		<div>
 			<h2>Ready to order? Let's go!</h2>
@@ -52,6 +51,9 @@ function CreateOrder() {
 					<div>
 						<input type="tel" name="phone" required />
 					</div>
+					{errors?.phone && (
+						<p style={{ color: 'red' }}> {errors.phone} </p>
+					)}
 				</div>
 
 				<div>
@@ -74,7 +76,9 @@ function CreateOrder() {
 						name="cart"
 						value={JSON.stringify(cart)}
 					/>
-					<button>Order now</button>
+					<button disabled={isSubmitting}>
+						{isSubmitting ? 'Placing your Order...' : 'Order Now'}
+					</button>
 				</div>
 			</Form>
 		</div>
@@ -90,6 +94,12 @@ export async function action({ request }) {
 		cart: JSON.parse(data.cart),
 		priority: data.priority === 'on',
 	};
+
+	const errors = {};
+	if (!isValidPhone(order.phone)) {
+		errors.phone = 'Please Enter your Phone Number so we can Contact you!';
+		return errors;
+	}
 
 	const newOrder = await createOrder(order);
 
