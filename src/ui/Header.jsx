@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import Username from '../features/user/Username';
 
 function Header() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -10,8 +11,7 @@ function Header() {
     navigate(`/order/${searchQuery}`);
   }
   return (
-    <header className="bg-yellow-500">
-      <h1>Header</h1>
+    <header className="border-b-2 border-stone-500 bg-yellow-500 px-4 py-3 uppercase">
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Search Order #"
@@ -19,7 +19,10 @@ function Header() {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </form>
-      <Link to="/">Fast Ract Pizza Co.</Link>
+      <Link to="/" className="tracking-widest">
+        Fast Ract Pizza Co.
+      </Link>
+      <Username />
     </header>
   );
 }
