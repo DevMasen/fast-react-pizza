@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 
 function Header() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
@@ -10,7 +10,7 @@ function Header() {
     navigate(`/order/${searchQuery}`);
   }
   return (
-    <header>
+    <header className="bg-yellow-500">
       <h1>Header</h1>
       <form onSubmit={handleSubmit}>
         <input

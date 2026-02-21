@@ -1,9 +1,9 @@
-import { Link } from "react-router";
+import { Link } from 'react-router';
 function CartOverview() {
   return (
-    <div>
+    <div className="bg-stone-800 text-stone-200">
       <h1>Footer</h1>
-      <p>
+      <p className="text-stone-300">
         <span>23 pizzas</span>
         <span>$23.45</span>
       </p>
