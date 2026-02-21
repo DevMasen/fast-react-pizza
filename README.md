@@ -9,13 +9,13 @@ Currently, two official plugins are available:
 
 # Getting Start with new React Router Data mode:
 
-### 1. Create BrowserRouter and RouterProvider and add loader
+## 1. Create BrowserRouter and RouterProvider and add loader
 
 ```js
 import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
-import Route1, { loader as Route1loader } from './components/Route1';
-import Route2 from './components/Route2';
+import Route1, { loader as Route1Loader } from './components/Route1';
+import Route2, { action as Route2Action } from './components/Route2';
 import Route3 from './components/Route3';
 import Home from './components/Home';
 import Error from './components/Error';
@@ -32,12 +32,13 @@ const router = createBrowserRouter([
 			{
 				path: '/route1',
 				element: <Route1 />,
-				loader: Route1loader,
+				loader: Route1Loader,
 				errorElement: <Error />,
 			},
 			{
 				path: '/route2/nested',
 				element: <Route2 />,
+				action: Route2Action,
 			},
 			{
 				path: '/route2/:id',
@@ -54,7 +55,7 @@ export default function App() {
 
 ## Note: To render children routes in `<RootRoute/>` we should use `<Outlet/>` component in it.
 
-### 2. Create loader function and use data in component
+## 2. Create loader function and use data in component
 
 ```js
 import { useLoaderData } from 'react-router';
@@ -71,6 +72,32 @@ export async function loader() {
 }
 ```
 
-### 3. Use the hook `useNavigation()` to get the loading state of Route.
+## 3. Use the hook `useNavigation()` to get the loading state of Route.
 
-### 4. Handle Errors with errorElement attribue in createBrowserRoute and `useRouteError()` hook.
+## 4. Handle Errors with errorElement attribue in createBrowserRoute and `useRouteError()` hook.
+
+## 5. Sending a POST request to the API with react router:
+
+### 1. Create a react router Form element and action function:
+
+```js
+import { postData } from 'api';
+export default function Component() {
+	return (
+		<Form method="POST">
+			<input type="X" name="y" />
+		</Form>
+	);
+}
+
+export async function action({ request }) {
+	const formData = await request.formData();
+	const data = Object.fromEntries(formData);
+
+	const res = await postData(data);
+
+	return redirect(`/route/${res.id}`);
+}
+```
+
+### 2. Connect the action to the routeCreator.
