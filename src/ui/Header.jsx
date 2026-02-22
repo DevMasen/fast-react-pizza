@@ -11,17 +11,18 @@ function Header() {
     navigate(`/order/${searchQuery}`);
   }
   return (
-    <header className="border-b border-stone-500 bg-yellow-500 px-4 py-3 uppercase sm:px-6">
+    <header className="flex items-center justify-between border-b border-stone-500 bg-yellow-500 px-4 py-3 uppercase sm:px-6">
+      <Link to="/" className="tracking-widest">
+        Fast Ract Pizza Co.
+      </Link>
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Search Order #"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-32 rounded border border-stone-800 px-2 md:w-44"
         />
       </form>
-      <Link to="/" className="tracking-widest">
-        Fast Ract Pizza Co.
-      </Link>
       <Username />
     </header>
   );
