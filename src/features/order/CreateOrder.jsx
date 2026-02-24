@@ -3,6 +3,7 @@ import { createOrder } from '../../services/apiRestaurant';
 import { Form, redirect, useActionData, useNavigation } from 'react-router';
 
 import Button from '../../ui/Button';
+import { useSelector } from 'react-redux';
 
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(str);
@@ -33,6 +34,8 @@ const fakeCart = [
 
 function CreateOrder() {
   const cart = fakeCart;
+  const { username } = useSelector((store) => store.user);
+
   const errors = useActionData();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
@@ -43,7 +46,13 @@ function CreateOrder() {
       <Form method="POST">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="text-lg sm:basis-36">First Name</label>
-          <input type="text" name="customer" required className="input grow" />
+          <input
+            defaultValue={username}
+            type="text"
+            name="customer"
+            required
+            className="input grow"
+          />
         </div>
 
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
