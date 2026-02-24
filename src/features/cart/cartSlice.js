@@ -40,7 +40,9 @@ export const { addItem, deleteItem, increaseItemQuantity, decreaseItemQuantity, 
 
 export default cartSlice.reducer;
 
-// Calculating Derived States : alternative: "reselect" library
+// Selector Functions : alternative: "reselect" library
+export const getCart = (store) => store.cart.cart;
+
 export const getTotalCartQuantity = (store) =>
   store.cart.cart.reduce((sum, item) => sum + item.quantity, 0);
 

@@ -16,6 +16,9 @@ export const { updateName } = userSlice.actions;
 
 export default userSlice.reducer;
 
+// Selector Functions:
+export const getUsername = (store) => store.user.username;
+
 /*
 import { getAddress } from "../../services/apiGeocoding";
 function getPosition() {
