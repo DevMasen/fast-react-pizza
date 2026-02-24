@@ -39,3 +39,10 @@ export const { addItem, deleteItem, increaseItemQuantity, decreaseItemQuantity, 
   cartSlice.actions;
 
 export default cartSlice.reducer;
+
+// Calculating Derived States : alternative: "reselect" library
+export const getTotalCartQuantity = (store) =>
+  store.cart.cart.reduce((sum, item) => sum + item.quantity, 0);
+
+export const getTotalCartPrice = (store) =>
+  store.cart.cart.reduce((sum, item) => sum + item.totalPrice, 0);

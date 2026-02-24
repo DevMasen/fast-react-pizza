@@ -1,13 +1,9 @@
 import { formatCurrency } from '../../utils/helpers';
 import Button from '../../ui/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addItem } from '../cart/cartSlice';
 function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
-  const { cart } = useSelector((store) => store.cart);
-
-  const isItemAdded = cart.some((item) => item.pizzaId === id);
-  const quantity = isItemAdded ? cart.find((item) => item.pizzaId === id).quantity : 0;
 
   const dispatch = useDispatch();
 
@@ -36,19 +32,10 @@ function MenuItem({ pizza }) {
           ) : (
             <p className="text-sm uppercase tracking-wide text-stone-500 md:text-base">Sold out</p>
           )}
-          {!soldOut && !isItemAdded && (
+          {!soldOut && (
             <Button type="small" onClick={handleAddToCart}>
               add to cart
             </Button>
-          )}
-          {isItemAdded && (
-            <>
-              <div>
-                <button>-</button>
-                <span>{quantity}</span>
-                <button>+</button>
-              </div>
-            </>
           )}
         </div>
       </div>
