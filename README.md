@@ -117,6 +117,25 @@ export async function action({ request }) {
 
 ### 2. Connect the action to the routeCreator.
 
+## 6. Use a Data fetcher on another route:
+
+```js
+import { useEffect } from 'react';
+import { useFetcher } from 'react-router';
+export default function Component() {
+  const fetcher = useFetcher();
+
+  useEffect(
+    function () {
+      if (!fetcher.data && fetcher.state === 'idle') fetcher.load('/menu');
+    },
+    [fetcher]
+  );
+
+  // Now the menu Data is available in fetcher.data
+}
+```
+
 # Getting Start with Tailwind CSS:
 
 ## 1. Installation : See Tailwind [Docs](https://v3.tailwindcss.com/docs/guides/vite)
