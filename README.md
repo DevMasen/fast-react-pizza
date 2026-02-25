@@ -7,9 +7,9 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-# Getting Start with new React Router Data mode:
+# Getting Start with React Router Data mode:
 
-## 1. Create BrowserRouter and RouterProvider and add loader
+## 1. Create BrowserRouter and RouterProvider and add loader and action.
 
 ```js
 import { createBrowserRouter } from 'react-router';
@@ -170,3 +170,73 @@ export default config;
 ## 3. Install Tailwind VSCode extension
 
 ## 4. run: `npm run dev` and enjoy Tailwind 😉
+
+# Getting Start with Redux Advanced Thunk:
+
+## 1. Create a Async Thunk and connent it to the Slice: `featureSlice.js`:
+
+```js
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+export const fetchAction = createAsyncThunk('feature/fetchAction', async function () {
+  // Asynchronous Codes (await codes)
+  return data;
+});
+
+const initialState = {
+  status: 'idle',
+  data: [],
+  error: '',
+};
+
+const featureSlice = createSlice({
+  name: 'feature',
+  initialState,
+  reducers: {
+    action1(state, action) {
+      // Updating States
+    },
+  },
+  extraReducers: (bulder) =>
+    builder
+      .addCase(fetchAction.pending, (state, action) => {
+        // Pending Status : Update States
+        state.status = 'loading';
+      })
+      .addCase(fetchAction.fulfilled, (state, action) => {
+        // Fulfilled Status : Update States
+        state.data = action.payload;
+        state.status = 'idle';
+      })
+      .addCase(fetchAction.rejected, (state, action) => {
+        // Error Status : Update States
+        state.error = action.error.message;
+        state.status = 'error';
+      }),
+});
+
+export const { action1 } = featureSlice.actions;
+
+export default featureSlice.reducer;
+
+// Selector functions
+export const getData = (store) => store.feature.data;
+```
+
+## 2. Using an Action Creator in another Action Creator:
+
+```js
+const featureSlice = createSlice({
+  name: 'feature',
+  initialState,
+  reducers: {
+    action1(state, action) {
+      // Updating States
+    },
+    action2(state, action) {
+      // Updating States with action 1
+      featureSlice.caseReducers.action1(state, action);
+    },
+  },
+});
+```

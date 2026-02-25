@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Form, redirect, useActionData, useNavigation } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 /////////////////////////////////
 import store from '../../store';
-import { getUsername } from '../user/userSlice';
+import { fetchAddress, getUsername } from '../user/userSlice';
 import { clearCart, getCart, getTotalCartPrice } from '../cart/cartSlice';
 //////////////////////////////////////////////////
 import { createOrder } from '../../services/apiRestaurant';
@@ -17,6 +17,7 @@ const isValidPhone = (str) =>
 
 function CreateOrder() {
   const [withPriority, setWithPriority] = useState(false);
+  const dispatch = useDispatch();
 
   const cart = useSelector(getCart);
   const username = useSelector(getUsername);
@@ -32,6 +33,10 @@ function CreateOrder() {
   return (
     <div className="px-4 py-6">
       <h2 className="mb-8 text-xl font-semibold">Ready to order? Let's go!</h2>
+
+      <Button type="primary" onClick={() => dispatch(fetchAddress())}>
+        Get Address
+      </Button>
 
       <Form method="POST">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
