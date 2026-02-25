@@ -117,7 +117,7 @@ export async function action({ request }) {
 
 ### 2. Connect the action to the routeCreator.
 
-## 6. Use a Data fetcher on another route:
+## 6. Use a Data fetcher to load data on another route:
 
 ```js
 import { useEffect } from 'react';
@@ -135,6 +135,30 @@ export default function Component() {
   // Now the menu Data is available in fetcher.data
 }
 ```
+
+## 7. Use a Data Fetcher to update data and re-render the same page:
+
+```js
+import { useFetcher } from 'react-router';
+import { updateData } from 'api';
+export default function Component() {
+  const fetcher = useFetcher();
+
+  return (
+    <fetcher.Form method="PATCH">
+      <button>Update Data</button>
+    </fetcher.Form>
+  );
+}
+
+export async function action({ request, params }) {
+  const updatedAttribute = { key: 'newValue' };
+  await updateData(params.paramId, updatedAttribute);
+  return null;
+}
+```
+
+### Note: Don't forget to connet the action to the route you want update.
 
 # Getting Start with Tailwind CSS:
 
