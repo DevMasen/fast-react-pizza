@@ -6,6 +6,7 @@ import { formatCurrency } from '../../utils/helpers';
 ///////////////////////////////////////////////////
 import Button from '../../ui/Button';
 import DeleteButton from '../../ui/DeleteButton';
+import UpdateItemQuantity from '../cart/UpdateItemQuantity';
 ///////////////////////////////////////
 function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
@@ -34,7 +35,7 @@ function MenuItem({ pizza }) {
         <p className="text-sm capitalize italic text-stone-500 sm:text-base">
           {ingredients.join(', ')}
         </p>
-        <div className="mt-auto flex items-end justify-between font-medium">
+        <div className="mt-auto flex items-center justify-between font-medium">
           {!soldOut ? (
             <p className="text-sm md:text-base">{formatCurrency(unitPrice)}</p>
           ) : (
@@ -46,7 +47,14 @@ function MenuItem({ pizza }) {
             </Button>
           )}
 
-          {isInCart && <DeleteButton pizzaId={id} />}
+          {isInCart && (
+            <div className="flex items-center gap-3">
+              <UpdateItemQuantity pizzaId={id} />
+              <div className="hidden sm:block">
+                <DeleteButton pizzaId={id} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </li>
