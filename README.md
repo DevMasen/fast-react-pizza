@@ -1,3 +1,16 @@
+<h1 align="center"> Fast React Pizza Co. 🍕</h1>
+<p align="center">
+<img align="center" width="720px" src="./public/banner.png" alt="Banner Image">
+</p>
+
+# A React/Redux/TailwindCSS project to order pizzas online 😋
+
+## A Project by `Jonas Schmedtmann` - React Ultimate Course
+
+## See Project DEMO on 👉[ThisURL](https://devmasen-fast-react-pizza.netlify.app/)👈
+
+## Thanks for visiting my GitHub 🫡♥️
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
